@@ -174,21 +174,3 @@ POST /repo/analyze
   "url": "https://github.com/user/repo"
 }
 
-### Response:
-{
-  "repo": {...},
-  "scores": {
-    "popularity_score": 72,
-    "activity_score": 80,
-    "health_score": 85,
-    "final_score": 78.4,
-    "verdict": "Good project"
-  },
-  "ai": {
-    "summary": "...",
-    "strengths": [...],
-    "weaknesses": [...],
-    "audience": "...",
-    "verdict": "..."
-  }
-}
