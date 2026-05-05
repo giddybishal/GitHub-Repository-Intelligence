@@ -1,25 +1,4 @@
-from .github_client import fetch_repo
-from .models import RepoData, RepoScore
-
-# For Repo Data Extraction
-def extract_owner_repo(url: str):
-    parts = url.rstrip("/").split("/")
-    return parts[-2], parts[-1]
-
-async def get_repo_data(url: str):
-    owner, repo = extract_owner_repo(url)
-
-    data = await fetch_repo(owner, repo)
-
-    return RepoData(
-        name=data["name"],
-        full_name=data["full_name"],
-        description=data.get("description"),
-        stars=data["stargazers_count"],
-        forks=data["forks_count"],
-        language=data.get("language"),
-        open_issues=data["open_issues_count"]
-    )
+from .models import RepoScore
 
 # Repo Scoring Logic
 def clamp(value, min_val=0, max_val=100):

@@ -1,19 +1,23 @@
 from fastapi import FastAPI
-from .models import RepoRequest
-from .service import get_repo_data, compute_repo_score
-from .ai_service import get_ai_analysis, build_prompt
+
+from app.application.analyze_repo import AnalyzeRepoUseCase
+from app.adapters.github_adapter import GitHubAdapter
+from app.adapters.hf_llm_adapter import HuggingFaceLLMAdapter
+from app.domain.models import RepoRequest
 
 app = FastAPI()
 
+# Create real implementations (ADAPTERS)
+github_adapter = GitHubAdapter()
+llm_adapter = HuggingFaceLLMAdapter()
+
+# Inject them into the use case
+use_case = AnalyzeRepoUseCase(
+    github_port=github_adapter,
+    llm_port=llm_adapter
+)
+
 @app.post("/repo/analyze")
 async def analyze_repo(request: RepoRequest):
-    repo_data = await get_repo_data(request.url)
-    scores = compute_repo_score(repo_data)
-    prompt = build_prompt(repo_data, scores)
-    ai_output = get_ai_analysis(prompt)
-
-    return {
-        "repo": repo_data,
-        "analysis": scores,
-        "ai": ai_output
-    }
+    result = await use_case.execute(request.url)
+    return result
