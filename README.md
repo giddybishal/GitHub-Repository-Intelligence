@@ -54,29 +54,6 @@ The initial version of the system was built as a straightforward FastAPI pipelin
 ## 🏗️ Refactored Architecture (Hexagonal Design)
 
 The project was later refactored using **Hexagonal Architecture (Ports & Adapters)** to improve modularity, testability, and scalability.
-
-### 🧩 Architecture Layers
-      [ FastAPI ]
-           │
- ┌─────────┴─────────┐
- │   Application     │
- │   (Use Case)     │
- └─────────┬─────────┘
-           │
-    ┌──────┴──────┐
-    │   Domain    │
-    │ (Core Logic)│
-    └──────┬──────┘
-           │
- ┌─────────┴─────────┐
- │      Ports        │
- └─────────┬─────────┘
-           │
- ┌─────────┴─────────┐
- │    Adapters       │
- │ (GitHub / LLM)    │
- └───────────────────┘
-
  
 ---
 
@@ -164,13 +141,3 @@ Simple interface layer:
 - Hexagonal Architecture (Ports & Adapters)
 
 ---
-
-## 📌 Example Use Case
-
-### Request:
-```json
-POST /repo/analyze
-{
-  "url": "https://github.com/user/repo"
-}
-
