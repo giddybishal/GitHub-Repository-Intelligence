@@ -2,14 +2,14 @@ from fastapi import FastAPI
 
 from app.application.analyze_repo import AnalyzeRepoUseCase
 from app.adapters.github_adapter import GitHubAdapter
-from app.adapters.hf_llm_adapter import HuggingFaceLLMAdapter
+from app.adapters.ollama_llm_adapter import OllamaLLMAdapter
 from app.domain.models import RepoRequest
 
 app = FastAPI()
 
 # Create real implementations (ADAPTERS)
 github_adapter = GitHubAdapter()
-llm_adapter = HuggingFaceLLMAdapter()
+llm_adapter = OllamaLLMAdapter()
 
 # Inject them into the use case
 use_case = AnalyzeRepoUseCase(
